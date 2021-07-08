@@ -10,45 +10,22 @@ let body = `
   </head>
   <body>
 
-    <h1 class="center-text">
-      <!-- ↓ Change "Hello world!" to something else and head on back to Begin! -->
-      Hello world! wissal is here
-    </h1>
+    
 
-    <p class="center-text">
-      Your <a href="https://begin.com" class="link" target="_blank">Begin</a> app is ready to go!
-    </p>
-
-  </body>
-</html>
+ 
 `
-function doPost(event){
-   let html="";
-   let isempty=false;
+  let isempty=false;
    for(const[k,v] of Object.entries(event.parameter)){
      let trimvalues=v.trim();
      if(trimvalues!== ""){
-       html+=`<br>${k} : ${trimvalues}`;
+       body+=`<br>${k} : ${trimvalues}`;
      }else{
        isempty=true;
        break;
      }
    }
-   if(! isempty){
-   MailApp.sendEmail({
-    to: "wissalwiwiamira@gmail.com",
-    subject: "Informations Formulire",
-    htmlBody: html,
-              
-   
-  });
-   }
-
-  return ContentService
-          .createTextOutput(JSON.stringify(isempty?"tous leschamps sont obligatoires":"le mail est bien parti"))
-          .setMimeType(ContentService.MimeType.JSON);     
-}
-/*export async function handler (req: object) {
+  export async function handler (req: object) {
+    if(! isempty){
   return {
     statusCode: 200,
     headers: {
@@ -56,6 +33,7 @@ function doPost(event){
       'cache-control': 'no-cache, no-store, must-revalidate, max-age=0, s-maxage=0'
     },
     body
+  }
   }
 }
 
