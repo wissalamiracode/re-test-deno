@@ -22,8 +22,33 @@ let body = `
   </body>
 </html>
 `
+function doPost(event){
+   let html="";
+   let isempty=false;
+   for(const[k,v] of Object.entries(event.parameter)){
+     let trimvalues=v.trim();
+     if(trimvalues!== ""){
+       html+=`<br>${k} : ${trimvalues}`;
+     }else{
+       isempty=true;
+       break;
+     }
+   }
+   if(! isempty){
+   MailApp.sendEmail({
+    to: "wissalwiwiamira@gmail.com",
+    subject: "Informations Formulire",
+    htmlBody: html,
+              
+   
+  });
+   }
 
-export async function handler (req: object) {
+  return ContentService
+          .createTextOutput(JSON.stringify(isempty?"tous leschamps sont obligatoires":"le mail est bien parti"))
+          .setMimeType(ContentService.MimeType.JSON);     
+}
+/*export async function handler (req: object) {
   return {
     statusCode: 200,
     headers: {
