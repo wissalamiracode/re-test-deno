@@ -1,4 +1,12 @@
 // TODO: modify the body object!
+  let body = `
+<!doctype html>
+<html lang=en>
+  <body>
+    <h1>Hello world!</h1>
+  </body>
+</html>
+`
 
   export async function handler (req: object) {
    
